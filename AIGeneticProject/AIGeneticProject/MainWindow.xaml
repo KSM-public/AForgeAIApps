@@ -1,0 +1,92 @@
+﻿<Window x:Class="AIGeneticProject.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AIGeneticProject"
+        mc:Ignorable="d"
+        Title="SI Algorytm Genetyczny" Height="475" Width="425" MinHeight="475" MinWidth="425">
+    <Grid>
+        <TabControl>
+            <TabItem Header="Dane" Width="Auto">
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
+                    <Label Content="Wzór:" />
+                    <TextBox x:Name="txtExpression" Width="400" />
+
+                    <Label Margin="0 10 0 0" Content="Wbudowane wzory:" />
+                    <ComboBox x:Name="cbxExpressions" SelectionChanged="cbxExpressions_SelectionChanged" Width="400">
+                        <ComboBoxItem>x*y</ComboBoxItem>
+                        <ComboBoxItem>(x*2)*y+8*x-x*(y^3)+5*y</ComboBoxItem>
+                        <ComboBoxItem>((4-x)^2)-((y-1)^2)</ComboBoxItem>
+                        <ComboBoxItem>((x-2)^3)+((x-2)^2)+(y^2)</ComboBoxItem>
+                    </ComboBox>
+
+                    <GroupBox Margin="0 10 0 0" Header="Ustawienia algorytmu">
+                        <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="150" />
+                                    <ColumnDefinition Width="150" />
+                                </Grid.ColumnDefinitions>
+                                
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="1*" />
+                                    <RowDefinition Height="1*" />
+                                    <RowDefinition Height="1*" />
+                                    <RowDefinition Height="1*" />
+                                    <RowDefinition Height="1*" />
+                                    <RowDefinition Height="1*" />
+                                    <RowDefinition Height="1*" />
+                                </Grid.RowDefinitions>
+
+                                <Label HorizontalAlignment="Right" Grid.Column="0" Grid.Row="0" Content="Wielkość populacji" />
+                                <local:NumberUpDown x:Name="numPopulation" HorizontalAlignment="Left" Grid.Column="1" Grid.Row="0" Value="200" MinValue="1" MaxValue="10000" />
+
+                                <Label HorizontalAlignment="Right" Grid.Column="0" Grid.Row="1" Content="Ilość iteracji" />
+                                <local:NumberUpDown x:Name="numIterations" HorizontalAlignment="Left" Grid.Column="1" Grid.Row="1" Value="400" MinValue="1" MaxValue="10000" />
+
+                                <Label HorizontalAlignment="Right" Grid.Column="0" Grid.Row="2" Content="Współczynnik mutacji" />
+                                <local:NumberUpDown x:Name="numMutation" HorizontalAlignment="Left" Grid.Column="1" Grid.Row="2" Precision="2" StepValue="0.01" Value="0.10" />
+
+                                <Label HorizontalAlignment="Right" Grid.Column="0" Grid.Row="3" Content="Współczynnik krzyżowania" />
+                                <local:NumberUpDown x:Name="numCrossover" HorizontalAlignment="Left" Grid.Column="1" Grid.Row="3" Precision="2" StepValue="0.01" Value="0.90" />
+
+                                <Label HorizontalAlignment="Right" Grid.Column="0" Grid.Row="4" Content="Minimalny zakres" />
+                                <local:NumberUpDown x:Name="numMinRange" HorizontalAlignment="Left" Grid.Column="1" Grid.Row="4" MinValue="-1000" MaxValue="1000" Value="-10" />
+
+                                <Label HorizontalAlignment="Right" Grid.Column="0" Grid.Row="5" Content="Maksymalny zakres" />
+                                <local:NumberUpDown x:Name="numMaxRange" HorizontalAlignment="Left" Grid.Column="1" Grid.Row="5" MinValue="-1000" MaxValue="1000" Value="10" />
+
+                                <Label HorizontalAlignment="Right" Grid.Column="0" Grid.Row="6" Content="Metoda doboru" />
+                                <ComboBox x:Name="cbxSelectionMethod" HorizontalAlignment="Left" Margin="5 0 0 0" Grid.Column="1" Grid.Row="6" Width="140">
+                                    <ComboBoxItem IsSelected="True">Elitarna</ComboBoxItem>
+                                    <ComboBoxItem>Rankingowa</ComboBoxItem>
+                                    <ComboBoxItem>Ruletki</ComboBoxItem>
+                                </ComboBox>
+                            </Grid>
+                        </StackPanel>
+                    </GroupBox>
+
+                    <Button x:Name="butCalculate" Margin="0 10 0 0" Height="40" Content="Oblicz" Click="butCalculate_Click" />
+                </StackPanel>
+            </TabItem>
+            
+            <TabItem Header="Wyniki">
+                <DockPanel LastChildFill="True">
+                    <Label DockPanel.Dock="Top" Content="Miejsca po przecinku:" />
+                    <local:NumberUpDown DockPanel.Dock="Top" x:Name="numResultPrecision" MinValue="0" MaxValue="15" Value="5" HorizontalAlignment="Left" />
+                    <Button DockPanel.Dock="Top" HorizontalAlignment="Left" Margin="5 0 5 5" Click="butConfirm_Click" Content="Zatwierdź" />
+
+                    <DataGrid DockPanel.Dock="Top" x:Name="dgrResults" AutoGenerateColumns="False" IsReadOnly="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding IterationCount}" Header="Numer iteracji" Width="Auto" />
+                            <DataGridTextColumn Binding="{Binding FormattedX}" Header="Wartość X" Width="100" />
+                            <DataGridHyperlinkColumn Binding="{Binding FormattedY}" Header="Wartość Y" Width="100" />
+                            <DataGridHyperlinkColumn Binding="{Binding FormattedFitness}" Header="Przystosowanie" Width="*" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </DockPanel>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>

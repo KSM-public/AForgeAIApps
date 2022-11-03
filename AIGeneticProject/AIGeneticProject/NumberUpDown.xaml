@@ -1,0 +1,13 @@
+﻿<UserControl x:Class="AIGeneticProject.NumberUpDown"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:AIGeneticProject"
+             mc:Ignorable="d" Height="31.875" Width="110.938">
+    <StackPanel Orientation="Horizontal" Margin="0,0,-42,0">
+        <TextBox x:Name="txtNum" x:FieldModifier="private" Margin="5,5,0,5" Width="100" Text="0" TextChanged="txtNum_TextChanged" />
+        <Button x:Name="butDown" x:FieldModifier="private" Margin="1,5,0,5"  Content="-" Width="20" Click="butDown_Click" />
+        <Button x:Name="butUp" x:FieldModifier="private" Margin="0,5,0,5" Content="+" Width="20" Click="butUp_Click" />
+    </StackPanel>
+</UserControl>
